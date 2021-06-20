@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book of My Dreams </title>
+	<link rel="stylesheet" type="text/css" href="{% static 'geekshop/style/style.css' %}">
+</head>
+<body>
+	<div class="header">
+	
+		<div class="logo">
+			<img src="{% static 'geekshop/img/logo.jpg' %}" alt="logo">
+		</div>
+		
+		<div class="menu">
+			<p><b>Меню:</b></p>
+			<ul class="menu">
+				<li><a href="{% url 'contacts'%}">Контакты</a><br></li>
+				<li><a href="{% url 'catalog'%}">Каталог товаров</a><br></li>
+			</ul>
+		</div>
+		
+	</div>
+	
+	<hr>
+	
+	<h1><i>Book of My Dreams</i></h1>
+	<h2>Добро пожаловать!</h2>
+	<h3>Вас приветствует потрясающий магазин IT-литературы!</h3>
+	
+	<hr>
+	
+	<div class="footer">
+		<p><i>&copy;Все​ ​ права​ ​ защищены</i></p>
+	</div>
+</body>
