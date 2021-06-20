@@ -1,0 +1,69 @@
+body{
+	background-color: #f8f8f8;
+}
+
+.menu > li{
+	list-style-type: none; /* Убираем маркеры */
+}
+	
+.menu > li > a{
+	color: #497DDD;
+	font-size: 30px;
+	font-family: Georgia;
+	font-style: italic;
+}
+
+img{
+	border: 5px solid black;
+}
+
+input[name="name"]{
+		width: 369px;
+}
+
+input[name="topic"]{
+	width: 312px;
+}
+
+textarea[name="text"]{
+		width: 253px;
+}
+
+.menu a:visited{
+	color: white;
+}
+
+.menu a:hover {
+	color: yellow;
+
+}
+
+input[type="email"]:focus{
+	color: yellow;
+	background-color: blue;
+}
+
+.header{
+	display:flex;
+	justify-content: space-between;
+	background-image: url(../img/background.webp);
+}
+
+.menu > ul > li{
+	display: inline-block;
+	padding: 10px;
+}
+
+.footer{
+	background-color: yellow;
+}
+
+.footer > p{
+	text-align: right;
+}
+
+iframe{
+	display: block;
+	width: 100%;
+	height: 374px;
+}
