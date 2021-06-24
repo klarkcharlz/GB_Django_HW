@@ -18,14 +18,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from .views import index, contacts
-from .settings import DEBUG, MEDIA_URL, MEDIA_ROOT
+from .settings import DEBUG, MEDIA_URL, MEDIA_ROOT, STATIC_ROOT, STATIC_URL
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", index, name="index"),
     path("contacts/", contacts, name="contacts"),
-    path("catalog/", include("mainapp.urls")),
+    path("catalog/", include("mainapp.urls", namespace="mainapp-products")),
 ]
 
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+    urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)
