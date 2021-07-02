@@ -1,13 +1,13 @@
-{% extends 'authapp/base.html' %}
-{% load staticfiles %}
+{% extends 'authnapp/base.html' %}
+{% load static %}
 
 
 {% block content %}
-    <form action="{% url 'authnapp:login' %}" method="post">
+    <form class="form-horizontal" action="{% url 'authnapp:login' %}" method="post">
         {% csrf_token %}
         {{ login_form.as_p }}
         <br>
-        <input type="submit" value="войти">
+        <input class="form-control" type="submit" value="войти">
     </form>
 {% endblock %}
 

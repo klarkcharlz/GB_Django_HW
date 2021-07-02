@@ -1,0 +1,16 @@
+<div class="sign">
+{% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'authnapp:edit' %}">
+            {{ user.first_name|default:'Пользователь' }}
+        </a>
+    </li>
+ {% endif %}
+    <li>
+        {% if user.is_authenticated %}
+          <a href="{% url 'authnapp:logout' %}"><h2><b>выйти</b></h2></a>
+        {% else %}
+          <a href="{% url 'authnapp:login' %}"><h2><b>войти</b></h2></a>
+        {% endif %}
+    </li>
+</div>
