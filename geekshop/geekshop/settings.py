@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my applications
-    "mainapp.apps.MainappConfig"
+    "mainapp.apps.MainappConfig",
+    "authnapp.apps.AuthnappConfig"
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'authnapp.ShopUser'
