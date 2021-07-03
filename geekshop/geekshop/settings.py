@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-g3p41w9e-co!q3(55_gbmf0a^4y*th(%=s2x=#zh!tz3e6g#+#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "192.168.1.156"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my applications
-    "mainapp.apps.MainappConfig"
+    "mainapp.apps.MainappConfig",
+    "authnapp.apps.AuthnappConfig"
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'authnapp.ShopUser'
