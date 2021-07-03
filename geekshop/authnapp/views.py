@@ -16,7 +16,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user and user.is_active:
             auth.login(request, user)
-            return HttpResponseRedirect(reverse('main'))
+            return HttpResponseRedirect(reverse('index'))
 
     content = {'title': title, 'login_form': login_form}
     return render(request, 'authnapp/login.html', content)
@@ -50,10 +50,10 @@ def edit(request):
         edit_form = ShopUserEditForm(request.POST, request.FILES, instance=request.user)
         if edit_form.is_valid():
             edit_form.save()
-            return HttpResponseRedirect(reverse('auth:edit'))
+            return HttpResponseRedirect(reverse('authnapp:edit'))
     else:
         edit_form = ShopUserEditForm(instance=request.user)
 
     content = {'title': title, 'edit_form': edit_form}
 
-    return render(request, 'authapp/edit.html', content)
+    return render(request, 'authnapp/edit.html', content)

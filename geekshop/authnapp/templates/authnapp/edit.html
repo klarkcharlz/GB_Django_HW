@@ -1,5 +1,5 @@
-{% extends 'authapp/base.html' %}
-{% load staticfiles %}
+{% extends 'authnapp/base.html' %}
+{% load static %}
 
 
 {% block content %}
@@ -13,5 +13,9 @@
             на главную
         </a>
     </button>
+    {% if user.avatar %}
     <div class="user_avatar"><img src="/media/{{ user.avatar }}"></div>
+    {% else %}
+        <p>Аватар отсутствует.</p>
+    {% endif %}
 {% endblock %}

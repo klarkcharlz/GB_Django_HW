@@ -122,7 +122,15 @@ iframe{
 	height: 374px;
 }
 
+.sign{
+    padding-right: 100px;
+}
+
 .sign h2{
     color: white;
     font-size: 36px;
+}
+
+li {
+	list-style-type: none;
 }

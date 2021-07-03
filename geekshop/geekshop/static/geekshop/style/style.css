@@ -83,3 +83,7 @@ iframe{
     color: white;
     font-size: 36px;
 }
+
+li {
+	list-style-type: none;
+}
