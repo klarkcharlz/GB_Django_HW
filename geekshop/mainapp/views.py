@@ -1,10 +1,20 @@
 from django.shortcuts import render
 
 from .models import Book, Specifications, Author, Publisher, Translator
+from basket.models import Basket
 
 
 # Create your views here.
 def catalog(request):
+    bbasket = []
+    total = 0
+    cnt = 0
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        for prod in basket:
+            total += prod.quantity * prod.product.price
+            cnt += prod.quantity
+
     """Catalogs of books"""
     title = "Book of My Dreams: Каталог товаров."
     books = Book.objects.all()
@@ -15,14 +25,23 @@ def catalog(request):
             "author": book.author,
             "image": book.image,
             "book_id": book.pk,
-            "link": "products:book"
+            "link": "products:book",
         })
-    content = {'title': title, "books": book_catal}
+    content = {'title': title, "books": book_catal, "basket": basket, "total": total, "cnt": cnt}
     return render(request, "mainapp/dynamic_catalog.html", content)
 
 
 def products(request, id):
     """books description"""
+    basket = []
+    total = 0
+    cnt = 0
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        for prod in basket:
+            total += prod.quantity * prod.product.price
+            cnt += prod.quantity
+
     book = Book.objects.get(pk=id)
     characteristics = {}
     images = book.image
@@ -38,8 +57,8 @@ def products(request, id):
                                    f"{Author.objects.get(pk=book.author_id).second_name}"
     characteristics["publisher_id"] = Publisher.objects.get(pk=book.publisher_id).name
     if "translator_id" in characteristics:
-        characteristics["translator_id"] = f"{Author.objects.get(pk=book.author_id).name} " \
-                                           f"{Author.objects.get(pk=book.author_id).second_name}"
+        characteristics["translator_id"] = f"{Translator.objects.get(pk=book.translator_id).name} " \
+                                           f"{Translator.objects.get(pk=book.translator_id).second_name}"
 
     del characteristics["price"], characteristics["short_desc"], characteristics["description"], \
         characteristics["id"], characteristics["_state"], characteristics["image"], \
@@ -69,6 +88,11 @@ def products(request, id):
         "images": images,
         "title": title,
         "characteristics": char,
-        "specifications": tech_char
+        "specifications": tech_char,
+        "id": id,
+        "basket": basket,
+        "total": total,
+        "cnt": cnt
     }
+    print()
     return render(request, f"mainapp/products/dynamic_book.html", content)
