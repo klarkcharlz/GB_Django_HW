@@ -15,6 +15,8 @@
 
 		{% include 'logo.html' %}
 
+        {% include 'basket_status.html' %}
+
         {% include 'mainapp/book_menu.html' %}
 
 		{% include 'sign.html' %}
@@ -45,7 +47,7 @@
                 <li>{{ items.0 }} {{ items.1 }}</li>
             {% endfor %}
 		</ul>
-			<form action="">
+			<form action="{% url 'basket:add' pk=id %}">
 				<input type="submit" value="Купить" >
 			</form>
 		</div>

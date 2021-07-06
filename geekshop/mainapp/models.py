@@ -103,7 +103,7 @@ class Specifications(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
 
     def __str__(self):
-        return f"{self.for_book.name}-{self.book_type}"
+        return f"{self.for_book.name}"
 
     class Meta:
         verbose_name = "Технические характеристики книги"

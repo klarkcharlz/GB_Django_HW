@@ -1,0 +1,9 @@
+<div>
+    <a href="{% url 'basket:view' %}" class="bask">
+        {% if basket %} Товаров в корзине: {{ cnt }}
+        <br>На сумму: {{ total }}
+        {% else %}
+            Корзина пуста
+        {% endif %}
+    </a>
+</div>
