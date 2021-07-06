@@ -6,14 +6,11 @@ from basket.models import Basket
 
 # Create your views here.
 def catalog(request):
-    bbasket = []
-    total = 0
-    cnt = 0
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        for prod in basket:
-            total += prod.quantity * prod.product.price
-            cnt += prod.quantity
+    basket = False
+    total = Basket.get_price()
+    cnt = Basket.get_count()
+    if total and cnt:
+        basket = True
 
     """Catalogs of books"""
     title = "Book of My Dreams: Каталог товаров."
@@ -33,14 +30,11 @@ def catalog(request):
 
 def products(request, id):
     """books description"""
-    basket = []
-    total = 0
-    cnt = 0
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        for prod in basket:
-            total += prod.quantity * prod.product.price
-            cnt += prod.quantity
+    basket = False
+    total = Basket.get_price()
+    cnt = Basket.get_count()
+    if total and cnt:
+        basket = True
 
     book = Book.objects.get(pk=id)
     characteristics = {}

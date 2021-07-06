@@ -5,14 +5,11 @@ from basket.models import Basket
 
 def index(request):
     """Main page"""
-    basket = []
-    total = 0
-    cnt = 0
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        for prod in basket:
-            total += prod.quantity * prod.product.price
-            cnt += prod.quantity
+    basket = False
+    total = Basket.get_price()
+    cnt = Basket.get_count()
+    if total and cnt:
+        basket = True
 
     title = "Book of My Dreams"
     content = {'title': title, "basket": basket, "total": total, "cnt": cnt}
@@ -21,14 +18,11 @@ def index(request):
 
 def contacts(request):
     """Contacts page"""
-    basket = []
-    total = 0
-    cnt = 0
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-        for prod in basket:
-            total += prod.quantity * prod.product.price
-            cnt += prod.quantity
+    basket = False
+    total = Basket.get_price()
+    cnt = Basket.get_count()
+    if total and cnt:
+        basket = True
 
     title = "Book of My Dreams: Контакты."
     content = {'title': title, "basket": basket, "total": total, "cnt": cnt}
