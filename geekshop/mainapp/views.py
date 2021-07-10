@@ -6,11 +6,9 @@ from basket.models import Basket
 
 # Create your views here.
 def catalog(request):
-    basket = False
-    total = Basket.get_price()
-    cnt = Basket.get_count()
-    if total and cnt:
-        basket = True
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
 
     """Catalogs of books"""
     title = "Book of My Dreams: Каталог товаров."
@@ -24,17 +22,15 @@ def catalog(request):
             "book_id": book.pk,
             "link": "products:book",
         })
-    content = {'title': title, "books": book_catal, "basket": basket, "total": total, "cnt": cnt}
+    content = {'title': title, "books": book_catal, "basket": basket}
     return render(request, "mainapp/dynamic_catalog.html", content)
 
 
 def products(request, id):
     """books description"""
-    basket = False
-    total = Basket.get_price()
-    cnt = Basket.get_count()
-    if total and cnt:
-        basket = True
+    basket = []
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
 
     book = Book.objects.get(pk=id)
     characteristics = {}
@@ -85,8 +81,6 @@ def products(request, id):
         "specifications": tech_char,
         "id": id,
         "basket": basket,
-        "total": total,
-        "cnt": cnt
     }
     print()
     return render(request, f"mainapp/products/dynamic_book.html", content)
