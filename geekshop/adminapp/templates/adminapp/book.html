@@ -1,0 +1,67 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Книги</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Книги
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Количество</th>
+                            <th>Стоимость</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Количество</th>
+                            <th>Стоимость</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for product in objects %}
+                            <tr {% if user.is_deleted %} style="opacity: 0.5;" {% endif %} >
+                                <td><a href="{% url 'adminapp:book_update' product.id %}" style="color: dodgerblue">{{ product.name }}</a></td>
+                                <td>{{ product.short_desc }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>
+                                    <a href="{% url 'adminapp:book_update' pk=product.id %}" {% if user.is_deleted %} class="invisible" {% endif %}>
+                                        <i class="fa fa-edit">Редактировать</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'adminapp:book_delete' pk=product.id %}" {% if user.is_deleted %} class="invisible" {% endif %}>
+                                        <i class="fa fa-times-circle">Удалить</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'adminapp:book_create' %}">
+                    <button class="btn btn-success">Создать продукт</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
