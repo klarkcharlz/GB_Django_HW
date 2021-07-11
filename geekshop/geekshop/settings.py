@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "mainapp.apps.MainappConfig",
     "authnapp.apps.AuthnappConfig",
     "basket.apps.BasketConfig",
+    "adminapp.apps.AdminappConfig",
 
 ]
 

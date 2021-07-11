@@ -9,6 +9,7 @@ class Author(models.Model):
     patronymic = models.CharField(verbose_name='Отчество', max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} {self.second_name}"
@@ -26,6 +27,7 @@ class Translator(models.Model):
     patronymic = models.CharField(verbose_name='Отчество', max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} {self.second_name}"
@@ -41,6 +43,7 @@ class Publisher(models.Model):
     name = models.CharField(verbose_name='Наименование', max_length=255)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -71,6 +74,7 @@ class Book(models.Model):
     ISBN = models.CharField(max_length=255, verbose_name="ISBN", blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.name} - {self.author.name} {self.author.second_name}"
@@ -93,7 +97,7 @@ class Specifications(models.Model):
         ('hard', 'Твердая обложка'),
     ]
 
-    for_book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Книга")
+    for_book = models.ForeignKey(Book, on_delete=models.CASCADE, verbose_name="Книга", unique=True)
     package_weight = models.PositiveIntegerField(verbose_name='Вес в упаковке, г', blank=True, null=True)
     cover_type = models.CharField(verbose_name='Тип обложки', max_length=40, choices=cover, blank=True)
     edition_format = models.CharField(verbose_name='Формат издания', max_length=50, blank=True)
@@ -101,6 +105,7 @@ class Specifications(models.Model):
     book_type = models.CharField(verbose_name='Тип издания', max_length=20, choices=type)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата обновления')
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.for_book.name}"
