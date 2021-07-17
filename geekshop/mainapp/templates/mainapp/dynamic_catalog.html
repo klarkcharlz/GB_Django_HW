@@ -7,43 +7,39 @@
 {% endblock %}
 
 {% block style %}
-	<link rel="stylesheet" type="text/css" href="{% static 'mainapp/style/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'mainapp/style/style.css' %}">
 {% endblock %}
 
 {% block content %}
-	<div class="header">
+    <div class="header">
 
-		{% include 'logo.html' %}
+        {% include 'logo.html' %}
 
         {% include 'basket_status.html' %}
 
-		<div class="menu">
-			<h1><b>Меню:</b></h1>
-			<ul class="menu">
-				<li><a href="{% url 'index'%}">Главная</a><br></li>
-				<li><a href="{% url 'contacts'%}">Контакты</a><br></li>
-			</ul>
-		</div>
+        <div class="menu">
+            <h1><b>Меню:</b></h1>
+            <ul class="menu">
+                <li><a href="{% url 'index' %}">Главная</a><br></li>
+                <li><a href="{% url 'contacts' %}">Контакты</a><br></li>
+            </ul>
+        </div>
 
-		{% include 'sign.html' %}
+        {% include 'sign.html' %}
 
-	</div>
+    </div>
 
-	<hr>
+    <hr>
 
-	<h2 class="catalog">Каталог товаров:</h2>
+    <h2 class="catalog">Каталог товаров:</h2>
 
-	<div class="catalog-list">
-
-
-
+    <div class="catalog-list">
         {% for book in books %}
             <div class="book">
-			    <img src="{{ book.image.url }}" width ="360" height="420"><br>
-			    <a href="{% url 'products:book' id=book.book_id %}#main">{{ book.name }} - {{book.author}}<a><br>
+                <img src="{{ book.image.url }}" width="360" height="420"><br>
+                <a href="{% url 'products:book' id=book.book_id %}#main">{{ book.name }} - {{ book.author }}<a><br>
             </div>
         {% endfor %}
+    </div>
 
-	</div>
-    <h1>{{ image.url }}</h1>
 {% endblock %}

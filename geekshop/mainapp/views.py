@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+
 from .models import Book, Specifications, Author, Publisher, Translator
 from basket.models import Basket
 
@@ -14,6 +15,7 @@ def catalog(request):
     title = "Book of My Dreams: Каталог товаров."
     books = Book.objects.all()
     book_catal = []
+
     for book in books:
         book_catal.append({
             "name": book.name,
@@ -22,7 +24,10 @@ def catalog(request):
             "book_id": book.pk,
             "link": "products:book",
         })
-    content = {'title': title, "books": book_catal, "basket": basket}
+
+    content = {'title': title,
+               "books": book_catal,
+               "basket": basket}
     return render(request, "mainapp/dynamic_catalog.html", content)
 
 
