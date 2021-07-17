@@ -1,0 +1,64 @@
+{% extends 'adminapp/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <h1 class="mt-4">Авторы</h1>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Книги
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Отчество</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Отчество</th>
+                            <th>Редактировать</th>
+                            <th>Удалить</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for author in objects %}
+                            <tr {% if author.is_deleted %} style="opacity: 0.5;" {% endif %} >
+                                <td><a href="{% url 'adminapp:author_update' author.id %}" style="color: dodgerblue">{{ author.name }}</a></td>
+                                <td>{{ author.second_name }}</td>
+                                <td>{{ author.patronymic }}</td>
+                                <td>
+                                    <a href="{% url 'adminapp:author_update' pk=author.id %}" {% if author.is_deleted %} class="invisible" {% endif %}>
+                                        <i class="fa fa-edit">Редактировать</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{% url 'adminapp:author_delete' pk=author.id %}" {% if author.is_deleted %} class="invisible" {% endif %}>
+                                        <i class="fa fa-times-circle">Удалить</i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'adminapp:author_create' %}">
+                    <button class="btn btn-success">Добавить автора</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

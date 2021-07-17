@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>{{ title }}</title>
+{% endblock %}
+
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{% static 'mainapp/style/style.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="header">
+
+		{% include 'logo.html' %}
+
+        {% include 'basket_status.html' %}
+
+        {% include 'mainapp/book_menu.html' %}
+
+		{% include 'sign.html' %}
+
+	</div>
+
+	<hr>
+
+	<h1><b>{{ title }}</b></h1>
+
+	<div class="product-info">
+
+		<div class="art">
+			<a href="{{ images.url }}" target="_blank">
+			<img src="{{ images.url }}" alt="Обложка книги." width ="500" height="600" class="no-active-border"></a>
+		</div>
+
+		<div class="info">
+		<h2 ><b>Описание товара.</b></h2>
+		<h2 class="h-product"><b>Краткое описание товара.</b></h2>
+		<p class="short-description">{{ short_desc }}</p>
+		<h3 class="h-product"><b>Цена:</b></h3>
+		<p>{{ price }}</p>
+
+		<h2 class="h-product"><b>Характеристики товара : </b></h2>
+		<ul class="characteristics">
+			{% for items in characteristics %}
+                <li>{{ items.0 }} {{ items.1 }}</li>
+            {% endfor %}
+		</ul>
+			<form action="{% url 'basket:add' pk=id %}">
+				<input type="submit" value="Купить" >
+			</form>
+		</div>
+	</div>
+
+    <h2 class="h-product"><b>Подробное описание товара</b></h2>
+    <p id="main" class="detailed-description">{{ long_desc }}</p>
+
+	<table>
+		<caption><b>Технические характеристики</b><caption>
+        {% for tech in specifications %}
+            <tr>
+			    <td>{{ tech.0 }}:</td> <td>{{ tech.1 }}</td>
+		    </tr>
+        {% endfor %}
+	</table>
+
+{% endblock %}

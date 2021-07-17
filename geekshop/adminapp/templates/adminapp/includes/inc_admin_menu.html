@@ -1,0 +1,38 @@
+<div class="nav_list">
+    <a href="{% url 'adminapp:book' %}" class="nav_link {% if request.resolver_match.url_name == 'book' %}
+                active
+           {% endif %}">
+        <i class='bx bx-grid-alt nav_icon'></i>
+        <span class="nav_name">Книги</span>
+    </a>
+    <a href="{% url 'adminapp:users' %}" class="{% if request.resolver_match.url_name == 'users' %}
+                active
+           {% endif %} nav_link">
+        <i class='bx bx-user nav_icon'></i>
+        <span class="nav_name">Пользователи</span>
+    </a>
+    <a href="{% url 'adminapp:specifications' %}" class="{% if request.resolver_match.url_name == 'specifications' %}
+                active
+           {% endif %} nav_link">
+        <i class='bx bx-grid-alt nav_icon'></i>
+        <span class="nav_name">Технические характеристики книг</span>
+    </a>
+    <a href="{% url 'adminapp:author' %}" class="{% if request.resolver_match.url_name == 'author' %}
+                active
+           {% endif %} nav_link">
+        <i class='bx bx-user nav_icon'></i>
+        <span class="nav_name">Авторы</span>
+    </a>
+    <a href="{% url 'adminapp:translator' %}" class="{% if request.resolver_match.url_name == 'translator' %}
+                active
+           {% endif %} nav_link">
+        <i class='bx bx-user nav_icon'></i>
+        <span class="nav_name">Переводчики</span>
+    </a>
+    <a href="{% url 'adminapp:publisher' %}" class="{% if request.resolver_match.url_name == 'publisher' %}
+                active
+           {% endif %} nav_link">
+        <i class='bx bx-user nav_icon'></i>
+        <span class="nav_name">Издательства</span>
+    </a>
+</div>
