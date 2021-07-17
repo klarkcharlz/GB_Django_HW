@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 from .models import Book, Specifications, Author, Publisher, Translator
@@ -25,9 +26,15 @@ def catalog(request):
             "link": "products:book",
         })
 
+    paginator = Paginator(books, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     content = {'title': title,
                "books": book_catal,
-               "basket": basket}
+               "basket": basket,
+               "page_obj": page_obj}
+
     return render(request, "mainapp/dynamic_catalog.html", content)
 
 
