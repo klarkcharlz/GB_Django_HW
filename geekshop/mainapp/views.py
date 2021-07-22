@@ -3,15 +3,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 from .models import Book, Specifications, Author, Publisher, Translator
-from basket.models import Basket
 
 
 # Create your views here.
 def catalog(request):
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-
     """Catalogs of books"""
     title = "Book of My Dreams: Каталог товаров."
     books = Book.objects.all()
@@ -32,7 +27,6 @@ def catalog(request):
 
     content = {'title': title,
                "books": book_catal,
-               "basket": basket,
                "page_obj": page_obj}
 
     return render(request, "mainapp/dynamic_catalog.html", content)
@@ -40,10 +34,6 @@ def catalog(request):
 
 def products(request, id):
     """books description"""
-    basket = []
-    if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=request.user)
-
     book = Book.objects.get(pk=id)
     characteristics = {}
     images = book.image
@@ -92,7 +82,6 @@ def products(request, id):
         "characteristics": char,
         "specifications": tech_char,
         "id": id,
-        "basket": basket,
     }
     print()
     return render(request, f"mainapp/products/dynamic_book.html", content)
