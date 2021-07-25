@@ -16,5 +16,12 @@
 <a href="{% url 'authnapp:register' %}" class="">
     зарегистрироваться
 </a>
-{% endblock %}
 
+
+<button class="btn btn-round form-control">
+    <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/">
+        Вход через ВКонтакте
+    </a>
+</button>
+
+{% endblock %}
