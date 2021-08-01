@@ -29,7 +29,7 @@ urlpatterns = [
     path('auth/', include('authnapp.urls', namespace='authnapp')),
     path('basket/', include('basket.urls', namespace='basket')),
     path('admin_staff/', include('adminapp.urls', namespace='adminapp')),
-
+    path('order/', include('ordersapp.urls', namespace='order')),
     path('', include('social_django.urls', namespace='social')),
 ]
 
