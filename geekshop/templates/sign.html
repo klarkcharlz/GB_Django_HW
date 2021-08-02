@@ -1,0 +1,36 @@
+<div class="sign">
+    <ul>
+        {% if user.is_authenticated %}
+            <li>
+                <a href="{% url 'authnapp:edit' %}">
+                    <h2>{{ user.first_name|default:'Пользователь' }}</h2>
+                </a>
+            </li>
+        {% endif %}
+        {% if user.is_superuser %}
+            <li>
+                <a href="{% url 'adminapp:users' %}"><h2>админка</h2></a>
+            </li>
+        {% endif %}
+        <li>
+            {% if user.is_authenticated %}
+                <a href="{% url 'authnapp:logout' %}"><h2>выйти</h2></a>
+            {% else %}
+                <a href="{% url 'authnapp:login' %}"><h2>войти</h2></a>
+            {% endif %}
+        </li>
+
+        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'ordersapp:orders_list' %}">
+                                заказы
+                            </a>
+
+                        </li>
+        {% endif %}
+
+
+    </ul>
+
+
+</div>
