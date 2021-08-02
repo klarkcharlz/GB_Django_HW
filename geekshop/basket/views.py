@@ -12,7 +12,7 @@ from mainapp.models import Book
 def basket(request):
     title = 'корзина'
     basket_items = Basket.objects.filter(user=request.user). \
-        order_by('product__name')
+        order_by('book__name')
     content = {
         'title': title,
         'basket_items': basket_items,
@@ -25,10 +25,10 @@ def basket_add(request, pk):
     if 'login' in request.META.get('HTTP_REFERER'):
         return HttpResponseRedirect(reverse('products:book', args=[pk]))
 
-    product = get_object_or_404(Book, pk=pk)
-    basket = Basket.objects.filter(user=request.user, product=product).first()
+    book = get_object_or_404(Book, pk=pk)
+    basket = Basket.objects.filter(user=request.user, book=book).first()
     if not basket:
-        basket = Basket(user=request.user, product=product)
+        basket = Basket(user=request.user, book=book)
     basket.quantity += 1
     basket.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
@@ -52,7 +52,7 @@ def basket_edit(request, pk, quantity):
         else:
             new_basket_item.delete()
         basket_items = Basket.objects.filter(user=request.user). \
-            order_by('product__name')
+            order_by('book__name')
         content = {
             'basket_items': basket_items,
         }
