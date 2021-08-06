@@ -86,7 +86,7 @@ class Book(models.Model):
 
     @staticmethod
     def get_items():
-        return Book.objects.filter(is_active=True).order_by('name')
+        return Book.objects.all().order_by('name')
 
 
 class Specifications(models.Model):
