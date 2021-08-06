@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 from django.forms import inlineformset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -12,6 +12,7 @@ from django.db.models.signals import pre_save, pre_delete
 from basket.models import Basket
 from ordersapp.forms import OrderItemForm
 from ordersapp.models import Order, OrderItem
+from mainapp.models import Book
 
 
 class OrderList(LoginRequiredMixin, ListView):
@@ -147,3 +148,12 @@ def product_quantity_update_save(sender, update_fields, instance, **kwargs):
 def product_quantity_update_delete(sender, instance, **kwargs):
     instance.book.quantity += instance.quantity
     instance.book.save()
+
+
+def get_product_price(request, pk):
+    if request.is_ajax():
+        product = Book.objects.filter(pk=int(pk)).first()
+        if product:
+            return JsonResponse({'price': product.price})
+        else:
+            return JsonResponse({'price': 0})
