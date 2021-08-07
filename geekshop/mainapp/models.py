@@ -84,6 +84,10 @@ class Book(models.Model):
         verbose_name_plural = "Книги"
         ordering = ["name", "author"]
 
+    @staticmethod
+    def get_items():
+        return Book.objects.all().order_by('name')
+
 
 class Specifications(models.Model):
     """Технические характеристики"""

@@ -4,7 +4,17 @@ from django.conf import settings
 from mainapp.models import Book
 
 
+class OrderItemQuerySet(models.QuerySet):
+
+    def delete(self, *args, **kwargs):
+        for object in self:
+            object.book.quantity += object.quantity
+            object.book.save()
+        super(OrderItemQuerySet, self).delete(*args, **kwargs)
+
+
 class Order(models.Model):
+
     FORMING = 'FM'
     SENT_TO_PROCEED = 'STP'
     PROCEEDED = 'PRD'
@@ -61,6 +71,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
+    objects = OrderItemQuerySet.as_manager()
+
     order = models.ForeignKey(Order,
                               related_name="orderitems",
                               on_delete=models.CASCADE)
@@ -72,3 +84,12 @@ class OrderItem(models.Model):
 
     def get_product_cost(self):
         return self.book.price * self.quantity
+
+    def delete(self):
+        self.book.quantity += self.quantity
+        self.book.save()
+        super(self.__class__, self).delete()
+
+    @staticmethod
+    def get_item(pk):
+        return OrderItem.objects.filter(pk=pk).first()
