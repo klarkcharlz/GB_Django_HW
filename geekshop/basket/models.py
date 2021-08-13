@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 
 from geekshop import settings
 from mainapp.models import Book
@@ -69,3 +70,7 @@ class Basket(models.Model):
 
         self.book.save()
         super(self.__class__, self).save(*args, **kwargs)
+
+    @cached_property
+    def get_items_cached(self):
+        return self.user.basket.select_related()
