@@ -5,9 +5,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import ShopUser
 from django.db import transaction
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.db import connection
 
 from .forms import ShopUserLoginForm, ShopUserRegisterForm, ShopUserEditForm
 from authnapp.forms import ShopUserProfileEditForm
+from mainapp.models import Book
 
 
 def send_verify_email(user):
@@ -113,3 +117,15 @@ def edit(request):
         'profile_form': profile_form
     }
     return render(request, 'authnapp/edit.html', content)
+
+
+def db_profile_by_type(prefix, type, queries):
+    update_queries = list(filter(lambda x: type in x['sql'], queries))
+    print(f'db_profile {type} for {prefix}:')
+    [print(query['sql']) for query in update_queries]
+
+
+@receiver(pre_save, sender=Book)
+def product_is_active_update_productcategory_save(sender, instance, **kwargs):
+    if instance.pk:
+        db_profile_by_type(sender, 'UPDATE', connection.queries)
